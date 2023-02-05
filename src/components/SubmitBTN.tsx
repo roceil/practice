@@ -1,31 +1,31 @@
-import { useContext } from 'react'
-import MyContext from '../containers/Context'
+import { useDataContext } from '../helpers/context/todoData/Index'
 
 interface IBtn {
   text: string
+  type: 'button' | 'submit'
   width?: string
   id?: number
 }
 
-export function SubmitBTN(props: IBtn) {
-  const { todoData, setTodoData } = useContext(MyContext)
-  const checkWidth = props.width ? props.width : ''
+export function SubmitBTN({ text, type, width, id }: IBtn) {
+  const { todo, setTodo } = useDataContext()
+  const checkWidth = width ? width : null
 
   const deletedItems = () => {
-    const newData = todoData.filter(
-      (item: { note: string; date: string; time: string }, index: number) => {
-        return props.id !== index
-      }
-    )
-    setTodoData(newData)
+    if (type === 'button') {
+      const newData = todo.filter((item, index: number) => {
+        return id !== index
+      })
+      setTodo(newData)
+    }
   }
   return (
     <button
-      type='submit'
-      onClick={deletedItems}
+      type={type}
       className={`border rounded p-1 bg-black text-white ${checkWidth}`}
+      onClick={deletedItems}
     >
-      {props.text}
+      {text}
     </button>
   )
 }

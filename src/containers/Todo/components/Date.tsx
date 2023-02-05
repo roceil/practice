@@ -2,13 +2,13 @@ interface IInputDate {
   register: Function
   errors: string | undefined
 }
-export function Date(props: IInputDate) {
+export function Date({register,errors}:IInputDate) {
   return (
     <label>
       日期：
-      {props.errors}
+      <span className="text-sm text-red-400">{errors}</span>
       <input
-        {...props.register('date', {
+        {...register('date', {
           required: {
             value: true,
             message: '欄位必填'

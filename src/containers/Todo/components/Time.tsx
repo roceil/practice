@@ -2,13 +2,13 @@ interface IInputTime {
   register: Function
   errors: string | undefined
 }
-export function Time(props: IInputTime) {
+export function Time({register,errors}: IInputTime) {
   return (
     <label>
       時間：
-      {props.errors}
+      <span className="text-sm text-red-400">{errors}</span>
       <input
-        {...props.register('time', {
+        {...register('time', {
           required: {
             value: true,
             message: '欄位必填'
